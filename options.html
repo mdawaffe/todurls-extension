@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Sign in to Simperium to Access TodURLs</title>
+	<style>
+		body {
+			font-family: "Open Sans", "Helvetica Neue", sans-serif;
+		}
+		th {
+			text-align: left;
+		}
+
+		input[type=text], input[type=password] {
+			width: 300px;
+		}
+
+		#success, #error {
+			border: 1px solid black;
+			color: white;
+			padding: 1em;
+		}
+
+		#error {
+			background-color: red;
+		}
+
+		#success {
+			background-color: green;
+		}
+
+		#success:empty, #error:empty {
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Sign in&hellip;</h1>
+
+	<form id="form-authorize" action="" method="post">
+		<table>
+			<tbody>
+				<tr>
+					<th scope="row"><label for="email">Email</label></th>
+					<td><input id="email" type="text" /></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="password">Password</label></th>
+					<td><input id="password" type="password" /></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p>
+			<input type="submit" value="Log in" />
+			<input type="hidden" name="auth_action" value="authorize" />
+		</p>
+	</form>
+
+	<h1>&hellip; or create an account</h1>
+
+	<form id="form-create" action="" method="post">
+		<table>
+			<tbody>
+				<tr>
+					<th scope="row"><label for="email">Email</label></th>
+					<td><input id="email" type="text" /></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="password">Password</label></th>
+					<td><input id="password" type="password" /></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p>
+			<input type="submit" value="Create Account" />
+			<input type="hidden" name="auth_action" value="create" />
+		</p>
+	</form>
+
+	<p id="error"></p>
+
+	<p id="success"></p>
+
+	<script src="options.js"></script>
+</body>
+
+</html>

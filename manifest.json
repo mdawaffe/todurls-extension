@@ -1,0 +1,24 @@
+{
+	"manifest_version": 2,
+
+	"name": "TodURLs",
+	"description": "Add URLs to your TodURLs list.",
+	"version": "0.1",
+
+	"permissions": [
+		"tabs",
+		"storage",
+		"https://auth.simperium.com/",
+		"*://*/*"
+	],
+
+	"browser_action": {
+		"default_icon": "icon.png"
+	},
+
+	"background" : {
+		"scripts": [ "simperium.js", "todurls.js" ]
+	},
+
+	"options_page" : "options.html"
+}
