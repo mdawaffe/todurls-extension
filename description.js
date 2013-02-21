@@ -9,7 +9,7 @@
 		return '';
 	}
 
-	element = element.querySelector( '.entry-content, .postcontent' );
+	element = element.querySelector( '.entry-content, .postcontent, .post-body' );
 	if ( ! element ) {
 		return '';
 	}
