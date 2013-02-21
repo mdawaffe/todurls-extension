@@ -11,6 +11,7 @@ var TodURLsExtension = {
 	init: function() {
 		chrome.storage.sync.get( 'token', function( data ) {
 			if ( !data.token ) {
+				TodURLsExtension.setCookie();
 				return;
 			}
 
@@ -18,8 +19,17 @@ var TodURLsExtension = {
 		} );
 	},
 
-	startSimperium: function( token ) {
-		var tab = 0;
+	setCookie: function() {
+		var token = this.token;
+
+		if ( ! token ) {
+			chrome.cookies.remove( {
+				url : 'http://todurls.com/',
+				name: 'token',
+			} );
+
+			return;
+		}
 
 		chrome.cookies.get( {
 			url : 'http://todurls.com/',
@@ -35,8 +45,15 @@ var TodURLsExtension = {
 				value: token,
 			} );
 		} );
+	},
+
+	startSimperium: function( token ) {
+		var tab = 0;
 
 		this.token = token;
+
+		this.setCookie();
+
 		this.simperium = new Simperium( this.appID, { token: this.token } );
 		this.bucket = this.simperium.bucket( 'todurls' );
 		this.bucket.on( 'notify', function( id, data ) { 
@@ -150,6 +167,8 @@ var TodURLsExtension = {
 			url: tab.url,
 			title: tab.title,
 		}, i;
+
+		this.setCookie();
 
 		if ( ! this.token ) {
 			this.buffer.push( tab );
