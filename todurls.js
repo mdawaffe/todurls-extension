@@ -21,6 +21,21 @@ var TodURLsExtension = {
 	startSimperium: function( token ) {
 		var tab = 0;
 
+		chrome.cookies.get( {
+			url : 'http://todurls.com/',
+			name: 'token'
+		}, function( cookie ) {
+			if ( cookie && cookie.value === token ) {
+				return;
+			}
+
+			chrome.cookies.set( {
+				url : 'http://todurls.com/',
+				name: 'token',
+				value: token,
+			} );
+		} );
+
 		this.token = token;
 		this.simperium = new Simperium( this.appID, { token: this.token } );
 		this.bucket = this.simperium.bucket( 'todurls' );
@@ -168,6 +183,9 @@ var TodURLsExtension = {
 			}
 
 			data.description = result[0];
+			if ( data.description.length > 200 ) {
+				data.description = data.description.substr( 0, 199 ) + "\u2026";
+			}
 			TodURLsExtension.checkIfDone( data );
 		} );
 	},

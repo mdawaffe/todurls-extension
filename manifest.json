@@ -8,6 +8,7 @@
 	"permissions": [
 		"tabs",
 		"storage",
+		"cookies",
 		"https://auth.simperium.com/",
 		"*://*/*"
 	],
