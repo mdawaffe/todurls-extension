@@ -8,10 +8,10 @@ submit = function( event ) {
 	event.preventDefault();
 
 	chrome.extension.sendMessage( {
-		message : 'auth',
-		email   : form.email.value,
-		password: form.password.value,
-		action  : form.auth_action.value
+		message      : 'auth',
+		email        : form.email.value,
+		password     : form.password.value,
+		auth_action  : form.auth_action.value
 	}, receive );
 
 	return false;
