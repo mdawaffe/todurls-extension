@@ -19,14 +19,16 @@ var TodURLsExtension = {
 		} );
 	},
 
-	setCookie: function() {
+	setCookie: function( callback ) {
 		var token = this.token;
+
+		callback = callback || function() {};
 
 		if ( ! token ) {
 			chrome.cookies.remove( {
 				url : 'http://todurls.com/',
 				name: 'token',
-			} );
+			}, callback );
 
 			return;
 		}
@@ -36,6 +38,7 @@ var TodURLsExtension = {
 			name: 'token'
 		}, function( cookie ) {
 			if ( cookie && cookie.value === token ) {
+				callback( cookie );
 				return;
 			}
 
@@ -43,7 +46,7 @@ var TodURLsExtension = {
 				url : 'http://todurls.com/',
 				name: 'token',
 				value: token,
-			} );
+			}, callback );
 		} );
 	},
 
@@ -79,8 +82,24 @@ var TodURLsExtension = {
 		} );
 	},
 
-	auth: function( request,  sender, sendResponse ) {
+	auth: function( request, sender, sendResponse ) {
 		var xhr = new XMLHttpRequest;
+
+		if ( 'logout' === request.auth_action ) {
+			this.token = null;
+
+			this.setCookie( function() {
+				chrome.storage.sync.remove( 'token', function() {
+					sendResponse( {
+						type   : 'success',
+						status : 200,
+						message: 'Logged out'
+					} );
+				} );
+			} );
+
+			return;
+		}
 
 		xhr.onload = function() {
 			var response;

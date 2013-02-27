@@ -3,13 +3,17 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Sign in to Simperium to Access TodURLs</title>
+	<title>Sign in to TodURLs</title>
 	<style>
 		body {
 			font-family: "Open Sans", "Helvetica Neue", sans-serif;
 		}
 		th {
 			text-align: left;
+		}
+
+		#form-options {
+			display: block;
 		}
 
 		input[type=text], input[type=password] {
@@ -30,36 +34,22 @@
 			background-color: green;
 		}
 
-		#success:empty, #error:empty {
+		form, #button-logout, #success:empty, #error:empty {
 			display: none;
 		}
 	</style>
 </head>
 
 <body>
-	<h1>Sign in&hellip;</h1>
+	<h1>Sign in to TodURLs</h1>
 
-	<form id="form-authorize" action="" method="post">
-		<table>
-			<tbody>
-				<tr>
-					<th scope="row"><label for="email">Email</label></th>
-					<td><input id="email" type="text" /></td>
-				</tr>
-				<tr>
-					<th scope="row"><label for="password">Password</label></th>
-					<td><input id="password" type="password" /></td>
-				</tr>
-			</tbody>
-		</table>
-
+	<form id="form-options">
 		<p>
-			<input type="submit" value="Log in" />
-			<input type="hidden" name="auth_action" value="authorize" />
+			<input type="button" id="button-create" value="Create a TodURLs account" />
+			<input type="button" id="button-authorize" value="Sign in with my TodURLs account" />
+			<input type="button" id="button-logout" value="Log out" />
 		</p>
 	</form>
-
-	<h1>&hellip; or create an account</h1>
 
 	<form id="form-create" action="" method="post">
 		<table>
@@ -78,6 +68,26 @@
 		<p>
 			<input type="submit" value="Create Account" />
 			<input type="hidden" name="auth_action" value="create" />
+		</p>
+	</form>
+
+	<form id="form-authorize" action="" method="post">
+		<table>
+			<tbody>
+				<tr>
+					<th scope="row"><label for="email">Email</label></th>
+					<td><input id="email" type="text" /></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="password">Password</label></th>
+					<td><input id="password" type="password" /></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p>
+			<input type="submit" value="Log in" />
+			<input type="hidden" name="auth_action" value="authorize" />
 		</p>
 	</form>
 
